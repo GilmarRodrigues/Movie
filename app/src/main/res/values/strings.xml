@@ -1,7 +1,15 @@
 <resources>
     <string name="app_name">Movies</string>
+
+    <!-- tabs-->
     <string name="tab_text_acao">Ação</string>
     <string name="tab_text_drama">Drama</string>
     <string name="tab_text_fantasia">Fantasia</string>
     <string name="tab_text_ficcao">Ficção</string>
+
+    <!-- msg de erro-->
+    <string name="erro_sem_conexao">Sem conexão</string>
+    <string name="erro_tente_mais_tarde">Ops.. parece que ocorreu alguma falha, por favor tente novamnete mais tarde.</string>
+    <string name="text_descricao">Descrição</string>
+    <string name="text_titilo">Titulo</string>
 </resources>
