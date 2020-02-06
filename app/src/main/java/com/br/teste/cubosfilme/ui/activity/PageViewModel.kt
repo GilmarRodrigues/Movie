@@ -1,10 +1,9 @@
-package com.br.teste.cubosfilme.ui.main
+package com.br.teste.cubosfilme.ui.activity
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 
 class PageViewModel : ViewModel() {
 

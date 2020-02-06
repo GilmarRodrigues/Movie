@@ -1,4 +1,4 @@
-package com.br.teste.cubosfilme.ui.main
+package com.br.teste.cubosfilme.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,11 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.br.teste.cubosfilme.R
+import com.br.teste.cubosfilme.ui.activity.PageViewModel
 
 /**
  * A placeholder fragment containing a simple view.
  */
-class PlaceholderFragment : Fragment() {
+class FilmesFragment : Fragment() {
 
     private lateinit var pageViewModel: PageViewModel
 
@@ -24,10 +25,8 @@ class PlaceholderFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.fragment_main, container, false)
         val textView: TextView = root.findViewById(R.id.section_label)
         pageViewModel.text.observe(this, Observer<String> {
@@ -37,19 +36,11 @@ class PlaceholderFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
         private const val ARG_SECTION_NUMBER = "section_number"
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
         @JvmStatic
-        fun newInstance(sectionNumber: Int): PlaceholderFragment {
-            return PlaceholderFragment().apply {
+        fun newInstance(sectionNumber: Int): FilmesFragment {
+            return FilmesFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_SECTION_NUMBER, sectionNumber)
                 }

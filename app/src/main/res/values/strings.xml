@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Movies</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_acao">Ação</string>
+    <string name="tab_text_drama">Drama</string>
+    <string name="tab_text_fantasia">Fantasia</string>
+    <string name="tab_text_ficcao">Ficção</string>
 </resources>
