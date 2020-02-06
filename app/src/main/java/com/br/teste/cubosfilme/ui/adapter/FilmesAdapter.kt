@@ -7,9 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.br.teste.cubosfilme.R
 import com.br.teste.cubosfilme.extensions.loadUrl
 import com.br.teste.cubosfilme.model.Resultado
+import com.br.teste.cubosfilme.utils.URL_BASE_IMG
 import kotlinx.android.synthetic.main.adapter_filmes.view.*
-
-private const val URL_BASE_IMG = "https://image.tmdb.org/t/p/w500/"
 
 class FilmesAdapter(private val resultados: MutableList<Resultado>,
                     private val onClick: (Resultado) -> Unit)
@@ -27,11 +26,19 @@ class FilmesAdapter(private val resultados: MutableList<Resultado>,
         val view = holder.itemView
         with(view) {
 
-            tv_titulo.text = resultado.title
-            iv_foto.loadUrl(URL_BASE_IMG + resultado.poster_path)
+            populaFoto(resultado)
+            populaTitulo(resultado)
 
             setOnClickListener {onClick(resultado)}
         }
+    }
+
+    private fun View.populaFoto(resultado: Resultado) {
+        iv_foto_adpter_filmes.loadUrl(URL_BASE_IMG + resultado.poster_path)
+    }
+
+    private fun View.populaTitulo(resultado: Resultado) {
+        tv_titulo_adapter_filmes.text = resultado.title
     }
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view)
