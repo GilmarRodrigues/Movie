@@ -26,9 +26,9 @@ class PesquisasActivity : AppCompatActivity() {
     private fun configuraRecycleView() {
         recycleview_pesquisas.itemAnimator = DefaultItemAnimator()
         recycleview_pesquisas.setHasFixedSize(true)
-            val adapter = FilmesAdapter(filmePesquisa.results) { resultado ->
-                startActivity<FilmeActivity>(FILME_RESULTADO_KEY to resultado)
-            }
+        val adapter = FilmesAdapter(filmePesquisa.results) { resultado ->
+            startActivity<FilmeActivity>(FILME_RESULTADO_KEY to resultado)
+        }
         recycleview_pesquisas.adapter = adapter
     }
 

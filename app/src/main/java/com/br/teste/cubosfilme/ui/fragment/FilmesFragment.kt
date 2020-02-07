@@ -37,11 +37,11 @@ class FilmesFragment : Fragment() {
     }
 
     private fun configuraRecycleView() {
-        filmesTask {filme ->
+        filmesTask { filme ->
             recycleview_filmes.itemAnimator = DefaultItemAnimator()
             recycleview_filmes.setHasFixedSize(true)
-            val adapter = FilmesAdapter(filme.results) { resultado ->
-                activity?.startActivity<FilmeActivity>(FILME_RESULTADO_KEY to resultado)
+            val adapter = FilmesAdapter(filme.results) { resultadoFilme ->
+                activity?.startActivity<FilmeActivity>(FILME_RESULTADO_KEY to resultadoFilme)
             }
             recycleview_filmes.adapter = adapter
         }

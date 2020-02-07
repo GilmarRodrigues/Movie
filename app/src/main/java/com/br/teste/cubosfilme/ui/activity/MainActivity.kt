@@ -2,7 +2,6 @@ package com.br.teste.cubosfilme.ui.activity
 
 import android.os.Bundle
 import android.view.Menu
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import com.br.teste.cubosfilme.R
@@ -13,7 +12,6 @@ import com.br.teste.cubosfilme.utils.API_TOKEN
 import com.br.teste.cubosfilme.utils.FILME_PESQUISA_KEY
 import com.br.teste.cubosfilme.utils.IDIOMA
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_filmes.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
@@ -37,10 +35,10 @@ class MainActivity : AppCompatActivity() {
         val searchItem = menu?.findItem(R.id.menu_pesquisar)
         val searchView = searchItem?.actionView as SearchView
         searchView.queryHint = getString(R.string.text_menu_pesquisar)
-        searchView.setOnQueryTextListener(pesquisar())
+        searchView.setOnQueryTextListener(onQueryTextListener())
     }
 
-    private fun pesquisar(): SearchView.OnQueryTextListener? {
+    private fun onQueryTextListener(): SearchView.OnQueryTextListener? {
         return object :SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 pesquisaFilmesTask(query) { filme ->
@@ -57,10 +55,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun pesquisaFilmesTask(titulo: String?, success: (Filme) -> Unit) {
-        titulo?.let {
-            FilmeRest.filmesPorTitulo(this, API_TOKEN, IDIOMA, it, { filme ->
+        titulo?.let { tituloFilme ->
+            FilmeRest.filmesPorTitulo(this, API_TOKEN, IDIOMA, tituloFilme, { filme ->
                 success(filme)
-                progress.visibility = View.GONE
             }, {
                 toast(getString(R.string.erro_tente_mais_tarde))
             })

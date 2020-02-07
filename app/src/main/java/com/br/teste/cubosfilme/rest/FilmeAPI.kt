@@ -3,7 +3,6 @@ package com.br.teste.cubosfilme.rest
 import com.br.teste.cubosfilme.model.Filme
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface FilmeAPI {

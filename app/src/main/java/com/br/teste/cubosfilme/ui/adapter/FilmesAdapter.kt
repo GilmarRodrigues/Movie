@@ -28,7 +28,6 @@ class FilmesAdapter(private val resultados: MutableList<Resultado>,
 
             populaFoto(resultado)
             populaTitulo(resultado)
-
             setOnClickListener {onClick(resultado)}
         }
     }
