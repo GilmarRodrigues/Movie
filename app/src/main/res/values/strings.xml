@@ -14,4 +14,6 @@
     <string name="text_titilo">Titulo</string>
     <string name="content_description_filme">Imagem do filme</string>
     <string name="text_conteudo">Conteudo</string>
+    <string name="text_menu_pesquisar">Pesquisar</string>
+    <string name="msg_aguarde">Pesquisando, por favor aguarde...</string>
 </resources>

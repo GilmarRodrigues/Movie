@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="3dp"
     app:cardElevation="3dp"
-    app:cardCornerRadius="10dp"
+    app:cardCornerRadius="5dp"
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,6 +37,8 @@
             android:layout_marginBottom="16dp"
             android:textColor="@color/primary_text"
             android:textSize="16sp"
+            android:maxLines="2"
+            android:ellipsize="end"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

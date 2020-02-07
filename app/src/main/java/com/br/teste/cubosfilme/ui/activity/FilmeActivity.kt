@@ -6,12 +6,12 @@ import android.view.MenuItem
 import com.br.teste.cubosfilme.R
 import com.br.teste.cubosfilme.extensions.loadUrl
 import com.br.teste.cubosfilme.model.Resultado
-import com.br.teste.cubosfilme.utils.FILME_RESULTADO
+import com.br.teste.cubosfilme.utils.FILME_RESULTADO_KEY
 import com.br.teste.cubosfilme.utils.URL_BASE_IMG
 import kotlinx.android.synthetic.main.activity_filme.*
 
 class FilmeActivity : AppCompatActivity() {
-    private val resultado by lazy { intent.getParcelableExtra(FILME_RESULTADO) as Resultado }
+    private val resultado by lazy { intent.getParcelableExtra(FILME_RESULTADO_KEY) as Resultado }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +22,7 @@ class FilmeActivity : AppCompatActivity() {
     }
 
     private fun populaView(resultado: Resultado) {
-        resultado.apply {
+        resultado?.apply {
             populaToolbar(resultado)
             populaFoto(resultado)
             populaConteudo(resultado)

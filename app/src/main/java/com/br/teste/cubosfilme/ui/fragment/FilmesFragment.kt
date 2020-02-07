@@ -1,9 +1,7 @@
 package com.br.teste.cubosfilme.ui.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.br.teste.cubosfilme.R
@@ -11,13 +9,13 @@ import com.br.teste.cubosfilme.model.Filme
 import com.br.teste.cubosfilme.rest.FilmeRest
 import com.br.teste.cubosfilme.ui.activity.FilmeActivity
 import com.br.teste.cubosfilme.ui.adapter.FilmesAdapter
-import com.br.teste.cubosfilme.utils.FILME_RESULTADO
+import com.br.teste.cubosfilme.utils.API_TOKEN
+import com.br.teste.cubosfilme.utils.FILME_RESULTADO_KEY
+import com.br.teste.cubosfilme.utils.IDIOMA
 import kotlinx.android.synthetic.main.fragment_filmes.*
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.startActivity
 
-private const val API_TOKEN = "6c05f9965be289e35bb428a2bd4604a9"
-private const val IDIOMA = "pt-BR"
 private const val GENERO_ACAO_ID = 28
 private const val GENERO_DRAMA_ID = 18
 private const val GENERO_FANTASIA_ID = 14
@@ -43,7 +41,7 @@ class FilmesFragment : Fragment() {
             recycleview_filmes.itemAnimator = DefaultItemAnimator()
             recycleview_filmes.setHasFixedSize(true)
             val adapter = FilmesAdapter(filme.results) { resultado ->
-                activity?.startActivity<FilmeActivity>(FILME_RESULTADO to resultado)
+                activity?.startActivity<FilmeActivity>(FILME_RESULTADO_KEY to resultado)
             }
             recycleview_filmes.adapter = adapter
         }
@@ -59,7 +57,6 @@ class FilmesFragment : Fragment() {
             })
         }
     }
-
 
     companion object {
         private const val ARG_TAB_SELECIONADO = "section_number"
