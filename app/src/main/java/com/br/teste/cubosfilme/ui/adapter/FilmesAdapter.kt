@@ -10,6 +10,7 @@ import com.br.teste.cubosfilme.model.Resultado
 import com.br.teste.cubosfilme.utils.URL_BASE_IMG
 import kotlinx.android.synthetic.main.adapter_filmes.view.*
 
+
 class FilmesAdapter(private val resultados: MutableList<Resultado>,
                     private val onClick: (Resultado) -> Unit)
     : RecyclerView.Adapter<FilmesAdapter.ViewHolder>(){

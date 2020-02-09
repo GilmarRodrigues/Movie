@@ -1,6 +1,7 @@
 package com.br.teste.cubosfilme.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -33,21 +34,25 @@ class FilmesFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        configuraRecycleView()
+        carregaLista()
     }
 
-    private fun configuraRecycleView() {
+    private fun carregaLista() {
         filmesTask { filme ->
-            recycleview_filmes.itemAnimator = DefaultItemAnimator()
-            recycleview_filmes.setHasFixedSize(true)
-            val adapter = FilmesAdapter(filme.results) { resultadoFilme ->
-                activity?.startActivity<FilmeActivity>(FILME_RESULTADO_KEY to resultadoFilme)
-            }
-            recycleview_filmes.adapter = adapter
+            configuraRecycleView(filme)
         }
     }
 
-    private fun filmesTask(success: (Filme) -> Unit) {
+    fun configuraRecycleView(filme: Filme) {
+        recycleview_filmes.itemAnimator = DefaultItemAnimator()
+        recycleview_filmes.setHasFixedSize(true)
+        val adapter = FilmesAdapter(filme.results) { resultadoFilme ->
+            activity?.startActivity<FilmeActivity>(FILME_RESULTADO_KEY to resultadoFilme)
+        }
+        recycleview_filmes.adapter = adapter
+    }
+
+    fun filmesTask(success: (Filme) -> Unit) {
         context?.let { context ->
             FilmeRest.filmesPorGeneros(context, API_TOKEN, IDIOMA, generos[index-1], { filme ->
                 success(filme)
@@ -69,5 +74,6 @@ class FilmesFragment : Fragment() {
                 }
             }
         }
+
     }
 }

@@ -1,6 +1,7 @@
 package com.br.teste.cubosfilme.ui.activity
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
