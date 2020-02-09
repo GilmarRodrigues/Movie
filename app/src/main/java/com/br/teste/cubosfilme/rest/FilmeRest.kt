@@ -13,7 +13,7 @@ object FilmeRest {
 
     fun filmesPorGeneros(context: Context, apiToken: String, idioma: String, generoId: Int,
                          success: (Filme) -> Unit, failure: (Throwable) -> Unit){
-        if (!Util.isOnline(context)) {
+        if (!Util.isOnline(context) && context!=null) {
             context.toast(context.getString(R.string.erro_sem_conexao))
             return
         }

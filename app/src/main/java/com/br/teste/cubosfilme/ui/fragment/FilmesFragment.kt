@@ -43,16 +43,21 @@ class FilmesFragment : Fragment() {
         }
     }
 
-    fun configuraRecycleView(filme: Filme) {
+    private fun configuraRecycleView(filme: Filme) {
         recycleview_filmes.itemAnimator = DefaultItemAnimator()
         recycleview_filmes.setHasFixedSize(true)
-        val adapter = FilmesAdapter(filme.results) { resultadoFilme ->
-            activity?.startActivity<FilmeActivity>(FILME_RESULTADO_KEY to resultadoFilme)
-        }
+        val adapter = configuraAdapter(filme)
         recycleview_filmes.adapter = adapter
     }
 
-    fun filmesTask(success: (Filme) -> Unit) {
+    fun configuraAdapter(filme: Filme): FilmesAdapter {
+        val adapter = FilmesAdapter(filme.results) { resultadoFilme ->
+            activity?.startActivity<FilmeActivity>(FILME_RESULTADO_KEY to resultadoFilme)
+        }
+        return adapter
+    }
+
+    private fun filmesTask(success: (Filme) -> Unit) {
         context?.let { context ->
             FilmeRest.filmesPorGeneros(context, API_TOKEN, IDIOMA, generos[index-1], { filme ->
                 success(filme)

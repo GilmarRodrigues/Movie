@@ -26,10 +26,15 @@ class PesquisasActivity : AppCompatActivity() {
     private fun configuraRecycleView() {
         recycleview_pesquisas.itemAnimator = DefaultItemAnimator()
         recycleview_pesquisas.setHasFixedSize(true)
-        val adapter = FilmesAdapter(filmePesquisa.results) { resultado ->
+        val adapter = configuraAdapter(filmePesquisa)
+        recycleview_pesquisas.adapter = adapter
+    }
+
+    fun configuraAdapter(filme: Filme): FilmesAdapter {
+        val adapter = FilmesAdapter(filme.results) { resultado ->
             startActivity<FilmeActivity>(FILME_RESULTADO_KEY to resultado)
         }
-        recycleview_pesquisas.adapter = adapter
+        return adapter
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
