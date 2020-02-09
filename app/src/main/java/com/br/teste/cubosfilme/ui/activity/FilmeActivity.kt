@@ -11,14 +11,14 @@ import com.br.teste.cubosfilme.utils.URL_BASE_IMG
 import kotlinx.android.synthetic.main.activity_filme.*
 
 class FilmeActivity : AppCompatActivity() {
-    private val resultado by lazy { intent.getParcelableExtra(FILME_RESULTADO_KEY) as Resultado }
+    private val mResultado by lazy { intent.getParcelableExtra(FILME_RESULTADO_KEY) as Resultado }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_filme)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        populaView(resultado)
+        populaView(mResultado)
     }
 
     private fun populaView(resultado: Resultado) {

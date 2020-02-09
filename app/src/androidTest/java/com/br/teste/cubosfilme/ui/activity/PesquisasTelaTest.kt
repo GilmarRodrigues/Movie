@@ -10,6 +10,8 @@ import org.hamcrest.Matchers.allOf
 import org.junit.Rule
 import org.junit.Test
 
+private const val TEMPO_MILISEGUNDOS: Long = 3000
+
 class PesquisasTelaTest {
 
     @get:Rule
@@ -17,7 +19,7 @@ class PesquisasTelaTest {
 
 
     @Test
-    fun deve_ApareceUmFilme_QuandoOuverUmaPesquisado() {
+    fun deve_ApareceUmFilme_QuandoOuverUmaPesquisa() {
         onView(allOf(
             withId(R.id.menu_pesquisar), withContentDescription("Pesquisar"),
             isDescendantOfA(withId(R.id.toolbar)),
@@ -35,7 +37,7 @@ class PesquisasTelaTest {
             .perform(pressImeActionButton())
 
         // delay para carregar a api
-        Thread.sleep(2000)
+        Thread.sleep(TEMPO_MILISEGUNDOS)
 
         onView(allOf(
             withId(R.id.tv_titulo_adapter_filmes), withText("Batman Begins"),

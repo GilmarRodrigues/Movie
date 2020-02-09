@@ -14,7 +14,7 @@ import org.jetbrains.anko.startActivity
 
 class PesquisasActivity : AppCompatActivity() {
 
-    private val filmePesquisa by lazy { intent.getParcelableExtra(FILME_PESQUISA_KEY) as Filme }
+    private val mFilmePesquisa by lazy { intent.getParcelableExtra(FILME_PESQUISA_KEY) as Filme }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +26,7 @@ class PesquisasActivity : AppCompatActivity() {
     private fun configuraRecycleView() {
         recycleview_pesquisas.itemAnimator = DefaultItemAnimator()
         recycleview_pesquisas.setHasFixedSize(true)
-        val adapter = configuraAdapter(filmePesquisa)
+        val adapter = configuraAdapter(mFilmePesquisa)
         recycleview_pesquisas.adapter = adapter
     }
 

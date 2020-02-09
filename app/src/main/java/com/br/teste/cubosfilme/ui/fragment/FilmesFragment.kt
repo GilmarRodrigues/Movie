@@ -1,7 +1,6 @@
 package com.br.teste.cubosfilme.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -24,8 +23,8 @@ private const val GENERO_FICCAO_ID = 878
 
 class FilmesFragment : Fragment() {
 
-    private val generos = arrayOf(GENERO_ACAO_ID, GENERO_DRAMA_ID, GENERO_FANTASIA_ID, GENERO_FICCAO_ID)
-    private val index by lazy { (arguments?.getInt(ARG_TAB_SELECIONADO) ?: 1) }
+    private val mGeneros = arrayOf(GENERO_ACAO_ID, GENERO_DRAMA_ID, GENERO_FANTASIA_ID, GENERO_FICCAO_ID)
+    private val mIndex by lazy { (arguments?.getInt(ARG_TAB_SELECIONADO) ?: 1) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -59,7 +58,7 @@ class FilmesFragment : Fragment() {
 
     private fun filmesTask(success: (Filme) -> Unit) {
         context?.let { context ->
-            FilmeRest.filmesPorGeneros(context, API_TOKEN, IDIOMA, generos[index-1], { filme ->
+            FilmeRest.filmesPorGeneros(context, API_TOKEN, IDIOMA, mGeneros[mIndex-1], { filme ->
                 success(filme)
                 progress.visibility = View.GONE
             }, {

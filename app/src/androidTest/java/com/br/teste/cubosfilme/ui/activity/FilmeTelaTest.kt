@@ -5,6 +5,8 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
+import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
+import androidx.test.espresso.contrib.RecyclerViewActions.scrollToPosition
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.rule.ActivityTestRule
 import com.br.teste.cubosfilme.R
@@ -12,6 +14,8 @@ import org.hamcrest.Matchers.allOf
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+
+private const val TEMPO_MILISEGUNDOS: Long = 3000
 
 class FilmeTelaTest {
 
@@ -21,7 +25,7 @@ class FilmeTelaTest {
     @Before
     fun setup() {
         // delay para carregar a api
-        Thread.sleep(2000)
+        Thread.sleep(TEMPO_MILISEGUNDOS)
     }
 
     @Test
@@ -45,8 +49,8 @@ class FilmeTelaTest {
         onView(allOf(
             withId(R.id.recycleview_filmes),
             isDisplayed()))
-            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(4))
-            .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(4, click()))
+            .perform(scrollToPosition<RecyclerView.ViewHolder>(4))
+            .perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(4, click()))
 
         onView(allOf(
             withId(R.id.tv_conteudo_filme_activity),
