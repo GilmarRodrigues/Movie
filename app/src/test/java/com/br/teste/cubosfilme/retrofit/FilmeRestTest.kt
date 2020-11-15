@@ -1,12 +1,13 @@
-package com.br.teste.cubosfilme.rest
+package com.br.teste.cubosfilme.retrofit
 
 import com.br.teste.cubosfilme.model.Filme
+import com.br.teste.cubosfilme.retrofit.service.FilmeService
 
 object FilmeRestTest {
 
     fun filmesPorGeneros(apiToken: String, idioma: String, generoId: Int, success: (Filme) -> Unit, failure: (Throwable) -> Unit){
 
-        val consultorApi = FilmeClient.createClientV1(FilmeAPI::class.java).filmesPorGenero(apiToken, idioma, generoId)
+        val consultorApi = AppRetrofit.createClientV1(FilmeService::class.java).filmesPorGenero(apiToken, idioma, generoId)
 
         consultorApi.enqueue(callback { response, throwable ->
             response?.let {
@@ -27,7 +28,7 @@ object FilmeRestTest {
     fun filmesPorTitulo(apiToken: String, idioma: String, titulo: String,
                         success: (Filme) -> Unit, failure: (Throwable) -> Unit){
 
-        val consultorApi = FilmeClient.createClientV1(FilmeAPI::class.java).filmesPorTitulo(apiToken, idioma, titulo)
+        val consultorApi = AppRetrofit.createClientV1(FilmeService::class.java).filmesPorTitulo(apiToken, idioma, titulo)
 
         consultorApi.enqueue(callback { response, throwable ->
             response?.let {

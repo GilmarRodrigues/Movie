@@ -1,7 +1,7 @@
 package com.br.teste.cubosfilme.ui.fragment
 
 import com.br.teste.cubosfilme.model.Filme
-import com.br.teste.cubosfilme.rest.FilmeRestTest
+import com.br.teste.cubosfilme.retrofit.FilmeRestTest
 import com.br.teste.cubosfilme.utils.API_TOKEN
 import com.br.teste.cubosfilme.utils.IDIOMA
 import org.hamcrest.MatcherAssert.assertThat
