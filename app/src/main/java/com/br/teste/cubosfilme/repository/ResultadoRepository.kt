@@ -1,6 +1,7 @@
 package com.br.teste.cubosfilme.repository
 
-import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.br.teste.cubosfilme.asynctask.BaseAsyncTask
 import com.br.teste.cubosfilme.model.Resultado
 import com.br.teste.cubosfilme.repository.dao.ResultadoDAO
@@ -10,9 +11,19 @@ class ResultadoRepository(
     private val dao: ResultadoDAO,
     private val webclient: FilmeWebClient = FilmeWebClient()) {
 
-    fun buscaTodos(quandoSucesso: (List<Resultado>) -> Unit, quandoFalha: (erro: String?) -> Unit) {
-        buscaInterna(quandoSucesso)
-        buscaNaApi(quandoSucesso, quandoFalha)
+    private val resultadosEncontrados = MutableLiveData<Resource<List<Resultado>?>>()
+
+    fun buscaTodos(): LiveData<Resource<List<Resultado>?>> {
+        val atualizaListResultado: (List<Resultado>) -> Unit = {
+            resultadosEncontrados.value = Resource(dado = it)
+        }
+        buscaInterna(quandoSucesso = atualizaListResultado)
+        buscaNaApi(quandoSucesso = atualizaListResultado, quandoFalha = {erro ->
+            val resourceAtual = resultadosEncontrados.value
+            val resourceDeFalha = criaResourcedeFalha<List<Resultado>?>(resourceAtual, erro)
+            resultadosEncontrados.value = resourceDeFalha
+        })
+        return resultadosEncontrados
     }
 
     private fun buscaInterna(quandoSucesso: (List<Resultado>) -> Unit) {

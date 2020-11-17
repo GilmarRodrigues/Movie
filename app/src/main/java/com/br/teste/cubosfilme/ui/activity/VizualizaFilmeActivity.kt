@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import com.br.teste.cubosfilme.R
-import com.br.teste.cubosfilme.extensions.loadUrl
+import com.br.teste.cubosfilme.ui.extensions.loadUrl
 import com.br.teste.cubosfilme.model.Resultado
 import com.br.teste.cubosfilme.repository.AppDatabase
 import com.br.teste.cubosfilme.repository.ResultadoRepository

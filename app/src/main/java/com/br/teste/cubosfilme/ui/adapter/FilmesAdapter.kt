@@ -4,10 +4,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.br.teste.cubosfilme.R
-import com.br.teste.cubosfilme.extensions.loadUrl
+import com.br.teste.cubosfilme.ui.extensions.loadUrl
 import com.br.teste.cubosfilme.model.Resultado
 import com.br.teste.cubosfilme.utils.URL_BASE_IMG
 import kotlinx.android.synthetic.main.adapter_filmes.view.*

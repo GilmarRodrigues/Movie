@@ -1,4 +1,4 @@
-package com.br.teste.cubosfilme.extensions
+package com.br.teste.cubosfilme.ui.extensions
 
 import android.view.View
 import android.widget.ImageView

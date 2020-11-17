@@ -1,4 +1,4 @@
-package com.br.teste.cubosfilme.extensions
+package com.br.teste.cubosfilme.ui.extensions
 
 import android.app.Activity
 import android.widget.Toast
