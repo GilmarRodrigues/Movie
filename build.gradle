@@ -4,6 +4,8 @@ buildscript {
     ext.kotlin_version = '1.4.10'
     ext.anko_version = '0.10.4'
     ext.room_version = '2.2.5'
+    ext.koin_version = '2.2.1'
+    ext.lifecycle_version = '2.2.0'
     repositories {
         google()
         jcenter()

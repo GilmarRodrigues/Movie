@@ -1,6 +1,8 @@
 package com.br.teste.cubosfilme.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.br.teste.cubosfilme.asynctask.BaseAsyncTask
 import com.br.teste.cubosfilme.model.Resultado
@@ -9,66 +11,66 @@ import com.br.teste.cubosfilme.retrofit.webclient.FilmeWebClient
 
 class ResultadoRepository(
     private val dao: ResultadoDAO,
-    private val webclient: FilmeWebClient = FilmeWebClient()) {
+    private val webclient: FilmeWebClient) {
 
-    private val resultadosEncontrados = MutableLiveData<Resource<List<Resultado>?>>()
+    private val mediador = MediatorLiveData<Resource<List<Resultado>?>>()
 
     fun buscaTodos(): LiveData<Resource<List<Resultado>?>> {
-        val atualizaListResultado: (List<Resultado>) -> Unit = {
-            resultadosEncontrados.value = Resource(dado = it)
+
+        mediador.addSource(buscaInterna()) {resultadosEncontrados ->
+            mediador.value = Resource(dado = resultadosEncontrados)
         }
-        buscaInterna(quandoSucesso = atualizaListResultado)
-        buscaNaApi(quandoSucesso = atualizaListResultado, quandoFalha = {erro ->
-            val resourceAtual = resultadosEncontrados.value
-            val resourceDeFalha = criaResourcedeFalha<List<Resultado>?>(resourceAtual, erro)
-            resultadosEncontrados.value = resourceDeFalha
+
+        val falhasDaWebApiLiveData = MutableLiveData<Resource<List<Resultado>?>>()
+        mediador.addSource(falhasDaWebApiLiveData) { resourceDeFalha ->
+            val resourceAtual = mediador.value
+            val resourceNovo: Resource<List<Resultado>?> = if (resourceAtual != null) {
+                Resource(dado = resourceAtual.dado, erro = resourceDeFalha.erro)
+            } else {
+                resourceDeFalha
+            }
+            mediador.value = resourceNovo
+        }
+        buscaNaApi( quandoFalha = {erro ->
+            falhasDaWebApiLiveData.value = Resource(dado = null, erro = erro)
         })
-        return resultadosEncontrados
+        return mediador
     }
 
-    private fun buscaInterna(quandoSucesso: (List<Resultado>) -> Unit) {
-        BaseAsyncTask(quandoExecuta = {
-            dao.buscaTodos()
-        }, quandoFinaliza = quandoSucesso)
-            .execute()
+    private fun buscaInterna(): LiveData<List<Resultado>> {
+        return dao.buscaTodos()
     }
 
-    private fun buscaNaApi(quandoSucesso: (List<Resultado>) -> Unit, quandoFalha: (erro: String?) -> Unit) {
+    private fun buscaNaApi(quandoFalha: (erro: String?) -> Unit) {
         webclient.buscaTodas(
         quandoSucesso = {
             it?.let {novosFilmes ->
-                salvaInterno(novosFilmes.results, quandoSucesso)
+                salvaInterno(novosFilmes.results)
+                Log.i("Script", "Aqui: $novosFilmes")
             }
         }, quandoFalha = quandoFalha)
     }
 
-    private fun salvaInterno(resultados: List<Resultado>, quandoSucesso: (List<Resultado>) -> Unit) {
+    private fun salvaInterno(resultados: List<Resultado>) {
         BaseAsyncTask(
             quandoExecuta = {
                 dao.salva(resultados)
-                dao.buscaTodos()
-            }, quandoFinaliza = quandoSucesso
+            }, quandoFinaliza = {}
         ).execute()
     }
 
-    private fun salvaInterno(resultado: Resultado, quandoSucesso: (resultado: Resultado) -> Unit) {
+    private fun salvaInterno(resultado: Resultado, quandoSucesso: () -> Unit) {
         BaseAsyncTask(
             quandoExecuta = {
                 dao.salva(resultado)
-                dao.buscaPorId(resultado.id)
-            }, quandoFinaliza = {resultadoEncontardo ->
-                resultadoEncontardo?.let {
-                    quandoSucesso(it)
-                }
-
+            }, quandoFinaliza = {
+                quandoSucesso()
             }
         )
     }
 
-    fun buscaPorId(resultadoId: Long, quandoSucesso: (resultado: Resultado?) -> Unit) {
-        BaseAsyncTask(quandoExecuta = {
-            dao.buscaPorId(resultadoId)
-        }, quandoFinaliza = quandoSucesso).execute()
+    fun buscaPorId(resultadoId: Long): LiveData<Resultado?>{
+        return dao.buscaPorId(resultadoId)
     }
 
 }

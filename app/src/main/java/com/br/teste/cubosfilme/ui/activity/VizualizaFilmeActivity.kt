@@ -1,41 +1,35 @@
 package com.br.teste.cubosfilme.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.br.teste.cubosfilme.R
-import com.br.teste.cubosfilme.ui.extensions.loadUrl
 import com.br.teste.cubosfilme.model.Resultado
-import com.br.teste.cubosfilme.repository.AppDatabase
-import com.br.teste.cubosfilme.repository.ResultadoRepository
+import com.br.teste.cubosfilme.ui.extensions.loadUrl
+import com.br.teste.cubosfilme.ui.viewmodel.VizualizaFilmeViewModel
 import com.br.teste.cubosfilme.utils.RESUTADO_ID_CHAVE
 import com.br.teste.cubosfilme.utils.URL_BASE_IMG
 import kotlinx.android.synthetic.main.activity_vizualiza_filme.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class VizualizaFilmeActivity : AppCompatActivity() {
     private val resultadoId by lazy { intent.getLongExtra(RESUTADO_ID_CHAVE, 0) }
-    private val repository by lazy { ResultadoRepository(AppDatabase.getInstance(this).resultadoDAO) }
-    private  lateinit var resultado: Resultado
+    private val viewModel: VizualizaFilmeViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vizualiza_filme)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    override fun onResume() {
-        super.onResume()
         buscaResultadoSelecionado()
     }
 
     private fun buscaResultadoSelecionado() {
-        repository.buscaPorId(resultadoId, quandoSucesso = {resultadoEncontrado ->
-            resultadoEncontrado?.let {
-                this.resultado = it
+        viewModel.buscaPorId(resultadoId).observe(this, Observer {   resultadoEncontardo ->
+            resultadoEncontardo?.let {
                 preencheCampos(it)
                 preencheToolbar(it)
             }
-
         })
     }
 
