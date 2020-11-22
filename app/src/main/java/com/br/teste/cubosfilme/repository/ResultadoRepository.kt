@@ -46,7 +46,6 @@ class ResultadoRepository(
         quandoSucesso = {
             it?.let {novosFilmes ->
                 salvaInterno(novosFilmes.results)
-                Log.i("Script", "Aqui: $novosFilmes")
             }
         }, quandoFalha = quandoFalha)
     }
