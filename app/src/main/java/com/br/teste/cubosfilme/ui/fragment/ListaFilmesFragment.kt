@@ -14,6 +14,7 @@ import com.br.teste.cubosfilme.ui.adapter.FilmesAdapter
 import com.br.teste.cubosfilme.ui.fragment.extensions.mostraErro
 import com.br.teste.cubosfilme.ui.viewmodel.ListaFilmesViewModel
 import kotlinx.android.synthetic.main.fragment_lista_filmes.*
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -21,12 +22,7 @@ private const val MENSAGEM_FALHA_CARREGAR_NOTICIAS = "Não foi possível carrega
 private const val TITULO_APPBAR = "Filmes"
 
 class ListaFilmesFragment : Fragment() {
-    private val adapter by lazy {
-        context?.let {
-            FilmesAdapter(context = it)
-        } ?: throw IllegalArgumentException("Contexto inválido")
-    }
-
+    private val adapter: FilmesAdapter by inject()
     private val viewModel: ListaFilmesViewModel by viewModel()
     private val controlador by lazy { findNavController() }
 

@@ -5,6 +5,7 @@ import com.br.teste.cubosfilme.repository.AppDatabase
 import com.br.teste.cubosfilme.repository.ResultadoRepository
 import com.br.teste.cubosfilme.repository.dao.ResultadoDAO
 import com.br.teste.cubosfilme.retrofit.webclient.FilmeWebClient
+import com.br.teste.cubosfilme.ui.adapter.FilmesAdapter
 import com.br.teste.cubosfilme.ui.viewmodel.ListaFilmesViewModel
 import com.br.teste.cubosfilme.ui.viewmodel.VisualizaFilmeViewModel
 import org.koin.android.viewmodel.dsl.viewModel
@@ -35,4 +36,5 @@ val appModules = module {
     viewModel<VisualizaFilmeViewModel> { (id: Long) ->
         VisualizaFilmeViewModel(id, get())
     }
+    factory<FilmesAdapter> { FilmesAdapter(get())  }
 }
