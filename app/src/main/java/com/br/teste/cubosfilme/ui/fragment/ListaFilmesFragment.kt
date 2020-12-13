@@ -10,7 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.br.teste.cubosfilme.R
-import com.br.teste.cubosfilme.ui.adapter.FilmesAdapter
+import com.br.teste.cubosfilme.databinding.FragmentListaFilmesBinding
+import com.br.teste.cubosfilme.ui.recyclerview.adapter.FilmesAdapter
 import com.br.teste.cubosfilme.ui.fragment.extensions.mostraErro
 import com.br.teste.cubosfilme.ui.viewmodel.ListaFilmesViewModel
 import kotlinx.android.synthetic.main.fragment_lista_filmes.*
@@ -32,7 +33,8 @@ class ListaFilmesFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_lista_filmes, container, false)
+        val viewBinding = FragmentListaFilmesBinding.inflate(inflater, container, false)
+        return viewBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

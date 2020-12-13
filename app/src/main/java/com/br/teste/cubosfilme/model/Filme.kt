@@ -17,15 +17,15 @@ class Filme(
 class Resultado(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
-    val popularity: Double,
-    val vote_count: Int,
-    val video: Boolean,
-    val poster_path: String?,
-    val adult: Boolean,
-    val backdrop_path: String?,
-    val original_language: String,
-    val original_title: String,
-    val title: String,
-    val vote_average: Double,
-    val overview: String,
-    val release_date: String) : Parcelable
+    val popularity: Double = 0.0,
+    val vote_count: Int = 0,
+    val video: Boolean = false,
+    val poster_path: String? = "",
+    val adult: Boolean = false,
+    val backdrop_path: String? = "",
+    val original_language: String = "",
+    val original_title: String = "",
+    val title: String = "",
+    val vote_average: Double = 0.0,
+    val overview: String = "",
+    val release_date: String = "") : Parcelable

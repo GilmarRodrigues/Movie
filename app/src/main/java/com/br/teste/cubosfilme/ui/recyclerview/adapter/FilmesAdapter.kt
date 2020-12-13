@@ -1,13 +1,23 @@
-package com.br.teste.cubosfilme.ui.adapter
+package com.br.teste.cubosfilme.ui.recyclerview.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
 import androidx.recyclerview.widget.RecyclerView
+import com.br.teste.cubosfilme.BR
 import com.br.teste.cubosfilme.R
+import com.br.teste.cubosfilme.databinding.AdapterFilmesBinding
 import com.br.teste.cubosfilme.ui.activity.extensions.loadUrl
 import com.br.teste.cubosfilme.model.Resultado
+import com.br.teste.cubosfilme.ui.databinding.ResultadoData
 import com.br.teste.cubosfilme.utils.URL_BASE_IMG
 import kotlinx.android.synthetic.main.adapter_filmes.view.*
 
@@ -19,8 +29,9 @@ class FilmesAdapter(
 ) : RecyclerView.Adapter<FilmesAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.adapter_filmes, parent, false)
-        return ViewHolder(view)
+        val inflater = LayoutInflater.from(context)
+        val viewDataBinding = AdapterFilmesBinding.inflate(inflater, parent, false)
+        return ViewHolder(viewDataBinding)
     }
 
     override fun getItemCount() = resultados.size
@@ -37,31 +48,23 @@ class FilmesAdapter(
         notifyItemRangeInserted(0, this.resultados.size)
     }
 
-    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view)  {
+    inner class ViewHolder(private val viewDataBinding: AdapterFilmesBinding)
+        : RecyclerView.ViewHolder(viewDataBinding.root), View.OnClickListener {
         private lateinit var resultado: Resultado
 
         init {
-            itemView.setOnClickListener {
-                if (::resultado.isInitialized) {
-                    quandoItemClicado(resultado)
-                }
-            }
+            viewDataBinding.clicaNoFilme = this
         }
 
         fun vincula(resultado: Resultado) {
             this.resultado = resultado
-            populaFoto(resultado)
-            populaTitullo(resultado)
+            viewDataBinding.resultado = ResultadoData(resultado)
         }
 
-        private fun populaFoto(resultado: Resultado) {
-            itemView.iv_foto_adpter_filmes.loadUrl(URL_BASE_IMG + resultado.poster_path)
-        }
-
-        private fun populaTitullo(resultado: Resultado) {
-            itemView.tv_titulo_adapter_filmes.text = resultado.title
+        override fun onClick(view: View?) {
+            if (::resultado.isInitialized) {
+                quandoItemClicado(resultado)
+            }
         }
     }
-
-
 }

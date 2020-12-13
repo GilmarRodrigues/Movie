@@ -10,9 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.br.teste.cubosfilme.R
+import com.br.teste.cubosfilme.databinding.FragmentVisualizaFilmeBinding
 import com.br.teste.cubosfilme.model.Resultado
-import com.br.teste.cubosfilme.ui.activity.extensions.loadUrl
+import com.br.teste.cubosfilme.ui.databinding.ResultadoData
 import com.br.teste.cubosfilme.ui.viewmodel.VisualizaFilmeViewModel
 import com.br.teste.cubosfilme.utils.URL_BASE_IMG
 import kotlinx.android.synthetic.main.fragment_visualiza_filme.*
@@ -24,6 +24,8 @@ class VisualizaFilmeFragment: Fragment() {
     private val resultadoId by lazy { argumentos.resultadoId}
     private val viewModel: VisualizaFilmeViewModel by viewModel { parametersOf(resultadoId)}
     private val controlador by lazy { findNavController() }
+    private lateinit var viewDataBinding : FragmentVisualizaFilmeBinding
+    private val resultadoData: ResultadoData by lazy { ResultadoData() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,25 +35,23 @@ class VisualizaFilmeFragment: Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_visualiza_filme, container, false)
+        viewDataBinding = FragmentVisualizaFilmeBinding.inflate(inflater, container, false)
+        viewDataBinding.lifecycleOwner = this
+        viewDataBinding.resultado = resultadoData
+        return viewDataBinding.root
     }
 
     private fun buscaResultadoSelecionado() {
-        viewModel.filmeEncontrado.observe(this, Observer {   resultadoEncontardo ->
-            resultadoEncontardo?.let {
-                preencheCampos(it)
-                preencheToolbar(it)
+        viewModel.filmeEncontrado.observe(this, Observer {
+            it?.let { resultadoEncontardo ->
+                resultadoData.atualiza(resultadoEncontardo)
+                preencheToolbar(resultadoEncontardo)
             }
         })
     }
 
     private fun preencheToolbar(resultado: Resultado) {
         activity?.title = resultado.title
-    }
-
-    private fun preencheCampos(resultado: Resultado) {
-        iv_foto_filme_fragment.loadUrl(URL_BASE_IMG + resultado.poster_path)
-        tv_conteudo_filme_fragment.text = resultado.overview
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
