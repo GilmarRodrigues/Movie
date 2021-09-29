@@ -53,6 +53,7 @@ class ListaFilmesFragment : Fragment() {
         binding.fragmentRecycleviewFilmes.setHasFixedSize(true)
         binding.fragmentRecycleviewFilmes.adapter = adapter
         configuraAdapter()
+
     }
 
     private fun configuraAdapter() {
