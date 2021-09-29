@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/listaFilmesFragment"
-        android:name="com.br.teste.cubosfilme.ui.fragment.ListaFilmesFragment"
+        android:name="com.br.teste.cubosfilme.presentation.list.ListaFilmesFragment"
         android:label="Lista de Filmes"
         tools:layout="@layout/fragment_lista_filmes">
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/visualizaFilmeFragment"
-        android:name="com.br.teste.cubosfilme.ui.fragment.VisualizaFilmeFragment"
+        android:name="com.br.teste.cubosfilme.presentation.details.VisualizaFilmeFragment"
         android:label="Visualiza Filme Fragment"
         tools:layout="@layout/fragment_visualiza_filme">
         <argument

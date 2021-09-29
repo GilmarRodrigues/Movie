@@ -4,7 +4,7 @@
         <import type="android.view.View" />
         <variable
             name="resultado"
-            type="com.br.teste.cubosfilme.ui.databinding.ResultadoData" />
+            type="com.br.teste.cubosfilme.presentation.databinding.ResultadoData" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"

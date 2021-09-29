@@ -7,7 +7,7 @@
             type="android.view.View.OnClickListener" />
         <variable
             name="resultado"
-            type="com.br.teste.cubosfilme.ui.databinding.ResultadoData" />
+            type="com.br.teste.cubosfilme.presentation.databinding.ResultadoData" />
     </data>
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
