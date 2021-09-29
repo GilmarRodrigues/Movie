@@ -7,14 +7,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.br.teste.cubosfilme.data.database.Resultado
 import com.br.teste.cubosfilme.databinding.AdapterFilmesBinding
-import com.br.teste.cubosfilme.presentation.databinding.ResultadoData
 
 
-class FilmesAdapter(
+class MovieAdapter(
     private val context: Context,
     private val resultados: MutableList<Resultado> = mutableListOf(),
     var quandoItemClicado: (resultado: Resultado) -> Unit = {}
-) : RecyclerView.Adapter<FilmesAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(context)
@@ -41,12 +40,10 @@ class FilmesAdapter(
         private lateinit var resultado: Resultado
 
         init {
-            viewDataBinding.clicaNoFilme = this
         }
 
         fun vincula(resultado: Resultado) {
             this.resultado = resultado
-            viewDataBinding.resultado = ResultadoData(resultado)
         }
 
         override fun onClick(view: View?) {

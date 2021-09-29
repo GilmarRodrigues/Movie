@@ -10,8 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.br.teste.cubosfilme.databinding.FragmentListaFilmesBinding
 import com.br.teste.cubosfilme.presentation.extensions.mostraErro
-import com.br.teste.cubosfilme.presentation.list.adapter.FilmesAdapter
-import kotlinx.android.synthetic.main.fragment_lista_filmes.*
+import com.br.teste.cubosfilme.presentation.list.adapter.MovieAdapter
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -20,9 +19,13 @@ private const val MENSAGEM_FALHA_CARREGAR_NOTICIAS = "Não foi possível carrega
 private const val TITULO_APPBAR = "Filmes"
 
 class ListaFilmesFragment : Fragment() {
-    private val adapter: FilmesAdapter by inject()
-    private val viewModel: ListaFilmesViewModel by viewModel()
+    private val adapter: MovieAdapter by inject()
+    private val viewModel: MovieListViewModel by viewModel()
     private val controlador by lazy { findNavController() }
+
+    private var _binding:FragmentListaFilmesBinding? = null
+    private val binding by lazy { _binding!! }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +37,8 @@ class ListaFilmesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val viewBinding = FragmentListaFilmesBinding.inflate(inflater, container, false)
-        return viewBinding.root
+        _binding = FragmentListaFilmesBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,13 +49,13 @@ class ListaFilmesFragment : Fragment() {
     }
 
     private fun configuraRecycleView() {
-        fragment_recycleview_filmes.itemAnimator = DefaultItemAnimator()
-        fragment_recycleview_filmes.setHasFixedSize(true)
-        fragment_recycleview_filmes.adapter = adapter
+        binding.fragmentRecycleviewFilmes.itemAnimator = DefaultItemAnimator()
+        binding.fragmentRecycleviewFilmes.setHasFixedSize(true)
+        binding.fragmentRecycleviewFilmes.adapter = adapter
         configuraAdapter()
     }
 
-    fun configuraAdapter() {
+    private fun configuraAdapter() {
         adapter.quandoItemClicado = { resultadoSelecionado ->
             vaiParaVisualizaFilme(resultadoSelecionado.id)
         }
@@ -71,5 +74,10 @@ class ListaFilmesFragment : Fragment() {
             resource.dado?.let { adapter.atualiza(it) }
             resource.erro?.let { mostraErro(MENSAGEM_FALHA_CARREGAR_NOTICIAS) }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/visualizaFilmeFragment"
-        android:name="com.br.teste.cubosfilme.presentation.details.VisualizaFilmeFragment"
+        android:name="com.br.teste.cubosfilme.presentation.details.MovieDetailsFragment"
         android:label="Visualiza Filme Fragment"
         tools:layout="@layout/fragment_visualiza_filme">
         <argument

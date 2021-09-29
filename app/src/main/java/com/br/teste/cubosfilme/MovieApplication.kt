@@ -5,12 +5,12 @@ import com.br.teste.cubosfilme.di.modules.appModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
-class AppApplication : Application() {
+class MovieApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
         startKoin {
-            androidContext(this@AppApplication)
+            androidContext(this@MovieApplication)
             modules(appModules)
         }
     }

@@ -3,7 +3,7 @@ package com.br.teste.cubosfilme.presentation.details
 import androidx.lifecycle.ViewModel
 import com.br.teste.cubosfilme.data.repository.ResultadoRepository
 
-class VisualizaFilmeViewModel(
+class MovieViewModel(
     private val id: Long,
     private val repository: ResultadoRepository): ViewModel() {
 

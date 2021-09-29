@@ -15,13 +15,15 @@ import com.br.teste.cubosfilme.presentation.databinding.ResultadoData
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class VisualizaFilmeFragment : Fragment() {
-    private val argumentos by navArgs<VisualizaFilmeFragmentArgs>()
+class MovieDetailsFragment : Fragment() {
+    private val argumentos by navArgs<MovieDetailsFragmentArgs>()
     private val resultadoId by lazy { argumentos.resultadoId }
-    private val viewModel: VisualizaFilmeViewModel by viewModel { parametersOf(resultadoId) }
+    private val viewModel: MovieViewModel by viewModel { parametersOf(resultadoId) }
     private val controlador by lazy { findNavController() }
-    private lateinit var viewDataBinding: FragmentVisualizaFilmeBinding
     private val resultadoData: ResultadoData by lazy { ResultadoData() }
+
+    private var _binding: FragmentVisualizaFilmeBinding? = null
+    private val binding by lazy { _binding!! }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,10 +37,8 @@ class VisualizaFilmeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewDataBinding = FragmentVisualizaFilmeBinding.inflate(inflater, container, false)
-        viewDataBinding.lifecycleOwner = this
-        viewDataBinding.resultado = resultadoData
-        return viewDataBinding.root
+        _binding = FragmentVisualizaFilmeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     private fun buscaResultadoSelecionado() {
@@ -63,4 +63,8 @@ class VisualizaFilmeFragment : Fragment() {
         controlador.popBackStack()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
