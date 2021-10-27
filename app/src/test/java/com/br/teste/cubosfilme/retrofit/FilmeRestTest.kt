@@ -1,9 +1,5 @@
 package com.br.teste.cubosfilme.retrofit
 
-import com.br.teste.cubosfilme.data.api.AppRetrofit
-import com.br.teste.cubosfilme.data.api.service.FilmeService
-import com.br.teste.cubosfilme.data.database.Filme
-
 object FilmeRestTest {
 
 /*    fun filmesPorGeneros(

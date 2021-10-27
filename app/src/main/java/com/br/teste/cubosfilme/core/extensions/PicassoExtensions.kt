@@ -1,10 +1,9 @@
-package com.br.teste.cubosfilme.presentation.extensions
+package com.br.teste.cubosfilme.core.extensions
 
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import com.squareup.picasso.Picasso
-import java.lang.Exception
 
 fun ImageView.loadUrl(url: String?, progress: ProgressBar? = null) {
     if (url == null || url.trim().isEmpty()) {
@@ -18,7 +17,6 @@ fun ImageView.loadUrl(url: String?, progress: ProgressBar? = null) {
         Picasso.get().load(url).fit().into(this,
             object : com.squareup.picasso.Callback {
                 override fun onSuccess() {
-                    // Download OK
                     progress.visibility = View.GONE
                 }
 

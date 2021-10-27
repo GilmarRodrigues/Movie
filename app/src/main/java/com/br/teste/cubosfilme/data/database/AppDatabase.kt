@@ -4,14 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.br.teste.cubosfilme.data.database.dao.MovieDao
+import com.br.teste.cubosfilme.data.database.entity.MovieCache
 
 private const val NOME_BANCO_DADOS = "filme.db"
-private const val VERSAO_BANCO_DADOS = 2
+private const val VERSAO_BANCO_DADOS = 4
 
-@Database(entities = [Resultado::class], version = VERSAO_BANCO_DADOS, exportSchema = false)
+@Database(entities = [MovieCache::class], version = VERSAO_BANCO_DADOS, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract val resultadoDAO: ResultadoDAO
+    abstract val movieDao: MovieDao
 
     companion object {
 

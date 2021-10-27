@@ -9,18 +9,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.br.teste.cubosfilme.data.database.Resultado
 import com.br.teste.cubosfilme.databinding.FragmentVisualizaFilmeBinding
-import com.br.teste.cubosfilme.presentation.databinding.ResultadoData
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class MovieDetailsFragment : Fragment() {
     private val argumentos by navArgs<MovieDetailsFragmentArgs>()
     private val resultadoId by lazy { argumentos.resultadoId }
-    private val viewModel: MovieViewModel by viewModel { parametersOf(resultadoId) }
+    private val detailsViewModel: MovieDetailsViewModel by viewModel { parametersOf(resultadoId) }
     private val controlador by lazy { findNavController() }
-    private val resultadoData: ResultadoData by lazy { ResultadoData() }
 
     private var _binding: FragmentVisualizaFilmeBinding? = null
     private val binding by lazy { _binding!! }
@@ -42,16 +39,7 @@ class MovieDetailsFragment : Fragment() {
     }
 
     private fun buscaResultadoSelecionado() {
-        viewModel.filmeEncontrado.observe(this) {
-            it?.let { resultadoEncontardo ->
-                resultadoData.atualiza(resultadoEncontardo)
-                preencheToolbar(resultadoEncontardo)
-            }
-        }
-    }
 
-    private fun preencheToolbar(resultado: Resultado) {
-        activity?.title = resultado.title
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -1,7 +1,7 @@
 package com.br.teste.cubosfilme
 
 import android.app.Application
-import com.br.teste.cubosfilme.di.modules.appModules
+import com.br.teste.cubosfilme.di.appModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -12,7 +12,6 @@ class MovieApplication : Application() {
         startKoin {
             androidContext(this@MovieApplication)
             modules(appModules)
-            //teste
         }
     }
 }
