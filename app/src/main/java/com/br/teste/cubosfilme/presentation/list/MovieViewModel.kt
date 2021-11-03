@@ -32,8 +32,7 @@ class MovieViewModel(
                 .flowOn(dispatcher)
                 .onStart { handleLoading(loading = true) }
                 .onCompletion { handleLoading(loading = false) }
-                .catch {
-                    (handleMoviesError(it as Result.Error)) }
+                .catch { (handleMoviesError(it.message)) }
                 .collect { handleResultMovies(it) }
 
         }
@@ -47,7 +46,7 @@ class MovieViewModel(
         when (result) {
             is Result.Success<List<MovieDomain>> ->
                 handleGetMoviesSuccess(result)
-            is Result.Error -> handleMoviesError(result)
+            is Result.Error -> handleMoviesError(result.exception)
         }
     }
 
@@ -57,9 +56,9 @@ class MovieViewModel(
         }
     }
 
-    private fun handleMoviesError(result: Result.Error) {
+    private fun handleMoviesError(message: String?) {
         _getMoviewViewState.value =
-            GetMoviesViewState.Error(result.exception.message)
+            GetMoviesViewState.Error(message)
     }
 }
 

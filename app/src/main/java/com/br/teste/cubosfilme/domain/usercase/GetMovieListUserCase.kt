@@ -24,6 +24,6 @@ class GetMovieListUserCase(
     private fun mapResult(result: Result<MovieListDto?>) =
         when (result) {
             is Result.Success<MovieListDto> -> Result.Success(data = result.data?.movies?.toDomain())
-            is Result.Error -> Result.Error(exception = Exception(result.exception))
+            is Result.Error -> Result.Error(exception = result.exception)
         }
 }

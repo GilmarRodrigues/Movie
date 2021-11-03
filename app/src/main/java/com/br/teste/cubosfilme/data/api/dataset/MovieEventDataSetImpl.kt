@@ -16,10 +16,10 @@ class MovieEventDataSetImpl(
         if (response.isSuccessful) {
             emit(Result.Success(data = response.body()))
         } else {
-            emit(Result.Error(exception = Exception("Erro na busca")))
+            emit(Result.Error(exception = "Erro na busca"))
         }
     }.catch {
-        emit(Result.Error(exception = Exception("Erro na internt")))
+        emit(Result.Error(exception = "Erro na internt"))
     }
 
 
